@@ -2,15 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/add-product", (req, res, next) => {
+router.get("/login", (req, res, next) => {
   res.send(
-    '<form action="/admin/add-product" method="POST"><input type="text" name="title"><input type="number" name="quantity"><button type="submit">Add Product</button></form>'
+    '<form onSubmit = localStorage.setItem(`username`,document.getElementById(`username`).value) action="/admin/login" method="POST"><input id="username" type="text" name="title"><button type="submit">Login</button></form>'
   );
 });
 
-router.post("/add-product", (req, res, next) => {
-  console.log(req.body);
-  res.redirect("/");
+router.post("/login", (req, res, next) => {
+  console.log(req.body, "22222");
+//   res.write(req.body);
+  res.redirect("/admin/chat");
 });
 
 module.exports = router;
