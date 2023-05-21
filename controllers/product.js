@@ -1,5 +1,5 @@
 const rootDir = require("../util/path");
-
+const Product = require("../models/product");
 const path = require("path");
 
 exports.getAddProduct = (req, res, next) => {
@@ -7,11 +7,15 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-    console.log(req.body);
-    res.redirect("/");
-  }
+  console.log(req.body);
+  const product = new Product(req.body.title);
+  product.save();
+  res.redirect("/");
+};
 
-  exports.getShopFile = (req, res, next) => {
-    console.log(rootDir, "PATH");
+exports.getShopFile = (req, res, next) => {
+  const products = Product.fetchAll((products) => {
     res.sendFile(path.join(rootDir, "views", "shop.html"));
-  }
+  });
+  // console.log(rootDir, "PATH");
+};
